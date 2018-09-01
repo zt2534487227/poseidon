@@ -39,7 +39,8 @@ public class ArticleController {
     @RequestMapping("/publish")
     public Result publish(Article article){
         articleService.insertOrUpdate(article);
-
+        //发布文章
+        articleService.updateById(article);
         return null;
     }
 
