@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zt.poseidon.blog.dao.CommentDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zt.poseidon.blog.model.Comment">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="userId" property="userId" />
+        <result column="content" property="content" />
+        <result column="articleId" property="articleId" />
+        <result column="bloggerId" property="bloggerId" />
+        <result column="parentId" property="parentId" />
+        <result column="treePath" property="treePath" />
+        <result column="commentTime" property="commentTime" />
+        <result column="isShow" property="isShow" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userName, userId, content, articleId, bloggerId, parentId, treePath, commentTime, isShow, status, createTime, version
+    </sql>
+
+</mapper>

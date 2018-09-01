@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zt.poseidon.blog.dao.ConcernDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zt.poseidon.blog.model.Concern">
+        <id column="id" property="id" />
+        <result column="userId" property="userId" />
+        <result column="concernName" property="concernName" />
+        <result column="concernId" property="concernId" />
+        <result column="createTime" property="createTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userId, concernName, concernId, createTime, version
+    </sql>
+
+</mapper>

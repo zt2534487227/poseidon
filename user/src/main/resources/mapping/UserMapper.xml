@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zt.poseidon.user.dao.UserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zt.poseidon.user.model.User">
+        <id column="id" property="id" />
+        <result column="userAccount" property="userAccount" />
+        <result column="roleType" property="roleType" />
+        <result column="nickName" property="nickName" />
+        <result column="password" property="password" />
+        <result column="checkMode" property="checkMode" />
+        <result column="checkCode" property="checkCode" />
+        <result column="realName" property="realName" />
+        <result column="sex" property="sex" />
+        <result column="userImage" property="userImage" />
+        <result column="mobilePhone" property="mobilePhone" />
+        <result column="email" property="email" />
+        <result column="sign" property="sign" />
+        <result column="info" property="info" />
+        <result column="url" property="url" />
+        <result column="areaId" property="areaId" />
+        <result column="address" property="address" />
+        <result column="wxId" property="wxId" />
+        <result column="qqId" property="qqId" />
+        <result column="sinaId" property="sinaId" />
+        <result column="userStatus" property="userStatus" />
+        <result column="statusMemo" property="statusMemo" />
+        <result column="loginIp" property="loginIp" />
+        <result column="loginTime" property="loginTime" />
+        <result column="creatTime" property="creatTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userAccount, roleType, nickName, password, checkMode, checkCode, realName, sex, userImage, mobilePhone, email, sign, info, url, areaId, address, wxId, qqId, sinaId, userStatus, statusMemo, loginIp, loginTime, creatTime, version
+    </sql>
+
+</mapper>

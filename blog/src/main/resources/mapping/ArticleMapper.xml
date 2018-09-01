@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zt.poseidon.blog.dao.ArticleDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zt.poseidon.blog.model.Article">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="desc" property="desc" />
+        <result column="content" property="content" />
+        <result column="categoryId" property="categoryId" />
+        <result column="tags" property="tags" />
+        <result column="publishTime" property="publishTime" />
+        <result column="userId" property="userId" />
+        <result column="ckickHit" property="ckickHit" />
+        <result column="replyHit" property="replyHit" />
+        <result column="showMode" property="showMode" />
+        <result column="status" property="status" />
+        <result column="creatTime" property="creatTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, desc, content, categoryId, tags, publishTime, userId, ckickHit, replyHit, showMode, status, creatTime, version
+    </sql>
+
+</mapper>
