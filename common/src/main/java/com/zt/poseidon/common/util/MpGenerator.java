@@ -14,19 +14,20 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MpGenerator {
 
     private static final String url="jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false";
+    private static final String driverName="com.mysql.cj.jdbc.Driver";
     private static final String username="root";
     private static final String password="123456";
-    private static final String packageParent="com.zt.poseidon.blog";
-    private static final String outputDir="E://zt//ideaWorkspace//poseidon//blog";
+    private static final String packageParent="com.zt.blog";
+    private static final String outputDir="E://zt//ideaWorkspace//blog";
     private static final String src="//src//main//java";
     private static final String tablePrefix="t_";
-    private static final String[] includeTables={"t_collection","t_concern"};
+    private static final String[] includeTables={"t_menu"};
 
     public static void main(String[] args) {
         new AutoGenerator()
                 .setDataSource(new DataSourceConfig()  //数据源配置
                         .setDbType(DbType.MYSQL)
-                        .setDriverName("com.mysql.cj.jdbc.Driver")
+                        .setDriverName(driverName)
                         .setUrl(url)
                         .setUsername(username)
                         .setPassword(password)
@@ -66,7 +67,8 @@ public class MpGenerator {
                 .setStrategy(new StrategyConfig()   //策略配置
                         .setTablePrefix(tablePrefix)
                         .setNaming(NamingStrategy.underline_to_camel)
-                        .setInclude(includeTables))
+                        .setInclude(includeTables)
+                        )
                 .setPackageInfo(new PackageConfig()  //包配置
                         .setParent(packageParent)
                         .setEntity("model")
@@ -84,12 +86,11 @@ public class MpGenerator {
                         .setEnableCache(false)
                         .setAuthor("ZhouTian"))
                 .setTemplate(new TemplateConfig()   //模板配置
-                        //.setController(null)
+                        .setController(null)
                         )
                 .execute();
+
     }
-
-
 
 
 }
