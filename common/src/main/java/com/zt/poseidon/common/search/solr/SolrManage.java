@@ -1,6 +1,5 @@
 package com.zt.poseidon.common.search.solr;
 
-import com.zt.poseidon.common.search.ISearchService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -22,7 +21,7 @@ import java.util.function.Function;
  * @Description: solr工具类
  * @Date: 2018/7/4
  */
-public class SolrManage implements ISearchService<SolrQuery,QueryResponse> {
+public class SolrManage {
 
     private SolrClient solrClient;
 
@@ -222,22 +221,4 @@ public class SolrManage implements ISearchService<SolrQuery,QueryResponse> {
     }
 
 
-    @Override
-    public QueryResponse search(Consumer<? super SolrQuery> consumer,String... args) {
-        return null;
-    }
-
-    @Override
-    public <V> V search(Consumer<? super SolrQuery> consumer, Function<? super QueryResponse, ? extends V> function,String... args) {
-       String collection=null;
-       if (null != args && args.length > 0){
-           collection=args[0];
-       }
-        return search(collection,consumer,function);
-    }
-
-    @Override
-    public QueryResponse search(SolrQuery solrQuery) {
-        return search("",solrQuery);
-    }
 }
