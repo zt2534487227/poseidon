@@ -18,9 +18,10 @@ public class DynamicDataSourceAdvice implements MethodBeforeAdvice,AfterReturnin
         Class<?> clazz = method.getDeclaringClass();
         String methodName = method.getName();
         DSType dataSource = DSType.WRITE;
-        if (methodName.startsWith("find") || methodName.startsWith("get") || methodName.startsWith("search")
-                || methodName.startsWith("select") || methodName.startsWith("query")
-                || methodName.startsWith("list") || methodName.startsWith("count")) {
+        if (methodName.startsWith("find") || methodName.startsWith("get")
+                || methodName.startsWith("search")|| methodName.startsWith("select")
+                || methodName.startsWith("query")|| methodName.startsWith("list")
+                || methodName.startsWith("page")|| methodName.startsWith("count")) {
             dataSource = DSType.READ;
         }
         try {

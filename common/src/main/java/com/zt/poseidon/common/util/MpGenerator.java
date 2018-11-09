@@ -18,10 +18,10 @@ public class MpGenerator {
     private static final String username="root";
     private static final String password="123456";
     private static final String packageParent="com.zt.blog";
-    private static final String outputDir="E://zt//ideaWorkspace//blog";
+    private static final String outputDir="D:\\zttttt";
     private static final String src="//src//main//java";
     private static final String tablePrefix="t_";
-    private static final String[] includeTables={"t_menu"};
+    private static final String[] includeTables={"t_user_token"};
 
     public static void main(String[] args) {
         new AutoGenerator()
@@ -68,6 +68,7 @@ public class MpGenerator {
                         .setTablePrefix(tablePrefix)
                         .setNaming(NamingStrategy.underline_to_camel)
                         .setInclude(includeTables)
+                        .setEntityLombokModel(true)
                         )
                 .setPackageInfo(new PackageConfig()  //包配置
                         .setParent(packageParent)
@@ -82,8 +83,9 @@ public class MpGenerator {
                         .setServiceName("%sService")
                         .setBaseColumnList(true)
                         .setBaseResultMap(true)
-                        .setActiveRecord(false)
+                        .setActiveRecord(true)
                         .setEnableCache(false)
+                        .setSwagger2(true)
                         .setAuthor("ZhouTian"))
                 .setTemplate(new TemplateConfig()   //模板配置
                         .setController(null)

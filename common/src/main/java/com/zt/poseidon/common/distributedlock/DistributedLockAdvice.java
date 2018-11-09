@@ -1,6 +1,6 @@
 package com.zt.poseidon.common.distributedlock;
 
-import com.zt.poseidon.common.constant.StatusCode;
+import com.zt.poseidon.common.constant.Constants;
 import com.zt.poseidon.common.entity.Result;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -20,7 +20,7 @@ public class DistributedLockAdvice implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
         Method method = methodInvocation.getMethod();
-        Object result=new Result<Object>(false,StatusCode.Status.TIMEOUT_ERROR);
+        Object result=new Result<Object>(false,Constants.Status.TIMEOUT_ERROR);
         if (method.isAnnotationPresent(Lock.class)) {
             Lock annotation = method.getAnnotation(Lock.class);
             String name = annotation.name();

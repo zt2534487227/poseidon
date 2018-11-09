@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.google.common.collect.Lists;
 import org.aopalliance.aop.Advice;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.plugin.Interceptor;
@@ -34,6 +35,7 @@ import org.springframework.transaction.interceptor.*;
 import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -165,11 +167,13 @@ public class DataSourceConfig implements EnvironmentAware{
         MybatisSqlSessionFactoryBean sqlSessionFactoryBean=new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSourceProxy());
         sqlSessionFactoryBean.setTypeAliasesPackage(dataSourceProps.getEntityPackages());
-        sqlSessionFactoryBean.setPlugins(new Interceptor[]{
-                new PaginationInterceptor(),        //分页插件
-                new OptimisticLockerInterceptor(),  //乐观锁插件
-                new PerformanceInterceptor()        //性能分析插件 输出sql语句和执行时间
-        });
+        List<Interceptor> interceptors=Lists.newArrayList();
+        interceptors.add(new PaginationInterceptor()); //分页插件
+        interceptors.add(new OptimisticLockerInterceptor()); //乐观锁插件
+        if (dataSourceProps.isUsePerformanceInterceptor()){
+            interceptors.add(new PerformanceInterceptor()); //性能分析插件 输出sql语句和执行时间
+        }
+        sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[]{}));
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
         configuration.setJdbcTypeForNull(JdbcType.NULL);
@@ -183,7 +187,6 @@ public class DataSourceConfig implements EnvironmentAware{
                         //.setLogicNotDeleteValue("0")
                         //.setIdType(IdType.AUTO) //主键策略
                         .setCapitalMode(false) //大写下划线转换
-                        .setColumnUnderline(false)  //驼峰下划线转换
                         .setFieldStrategy(FieldStrategy.NOT_EMPTY)
                 ));
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(dataSourceProps.getMapperLocations()));

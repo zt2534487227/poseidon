@@ -1,7 +1,7 @@
 package com.zt.poseidon.user.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zt.poseidon.common.constant.StatusCode;
+import com.zt.poseidon.common.constant.Constants;
 import com.zt.poseidon.common.entity.Result;
 import com.zt.poseidon.common.util.Md5Encrypt;
 import com.zt.poseidon.common.util.VerifyCodeUtil;
@@ -34,17 +34,17 @@ public class UserController {
     @RequestMapping("/login")
     public Result login(User user){
         Result result=null;
-        User login = userService.selectOne(new QueryWrapper<User>().lambda()
+        User login = userService.getOne(new QueryWrapper<User>().lambda()
                 .eq(User::getUserAccount, user.getUserAccount()));
         if (null == login){
-            return new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"用户不存在");
+            return new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"用户不存在");
         }
         //验证密码
         String md5 = Md5Encrypt.md5(user.getPassword() + login.getCheckCode());
         if (md5.equals(login.getPassword())){
-            result=new Result(true,StatusCode.Status.SUCCESS);
+            result=new Result(true,Constants.Status.SUCCESS);
         }else {
-            result=new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"密码错误");
+            result=new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"密码错误");
         }
         return result;
     }
@@ -56,11 +56,11 @@ public class UserController {
      */
     @RequestMapping("/checkUserAccount")
     public Result chechUserAccount(String userAccount){
-        Result result=new Result(true,StatusCode.Status.SUCCESS);;
-        User user = userService.selectOne(new QueryWrapper<User>().lambda()
+        Result result=new Result(true,Constants.Status.SUCCESS);;
+        User user = userService.getOne(new QueryWrapper<User>().lambda()
                 .eq(User::getUserAccount, userAccount));
         if (user != null){
-            result=new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"该用户名已注册");
+            result=new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"该用户名已注册");
         }
         return result;
     }
@@ -78,13 +78,13 @@ public class UserController {
         Pattern pattern=Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9_]{1,15}$");
         Matcher matcher = pattern.matcher(user.getUserAccount());
         if (!matcher.matches()){
-            return new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"用户账号不合法");
+            return new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"用户账号不合法");
         }
         //判断用户账号是否重复
-        User user1 = userService.selectOne(new QueryWrapper<User>().lambda()
+        User user1 = userService.getOne(new QueryWrapper<User>().lambda()
                 .eq(User::getUserAccount, user.getUserAccount()));
         if (null != user1){
-            return new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"用户账号已存在");
+            return new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"用户账号已存在");
         }
         //盐值  10位随机码
         String code = VerifyCodeUtil.generateTextCode(VerifyCodeUtil.TYPE_ALL_MIXED, 10, null);
@@ -92,11 +92,11 @@ public class UserController {
         //MD5 加密
         String md5Password = Md5Encrypt.md5(user.getPassword() + code);
         user.setPassword(md5Password);
-        boolean insert = userService.insert(user);
+        boolean insert = userService.save(user);
         if (insert){
-            result=new Result(true,StatusCode.Status.SUCCESS);
+            result=new Result(true,Constants.Status.SUCCESS);
         }else {
-            result=new Result(false,StatusCode.Status.BUSINESS_ERROR.getCode(),"注册失败");
+            result=new Result(false,Constants.Status.BUSINESS_ERROR.getCode(),"注册失败");
         }
         return result;
     }
@@ -108,8 +108,8 @@ public class UserController {
      */
     @RequestMapping("/getUserInfo")
     public Result getUserInfo(Integer userId){
-        Result<User> result=new Result<User>(true,StatusCode.Status.SUCCESS);
-        User user = userService.selectById(userId);
+        Result<User> result=new Result<User>(true,Constants.Status.SUCCESS);
+        User user = userService.getById(userId);
         result.setData(user);
         return result;
     }

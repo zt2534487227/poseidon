@@ -27,7 +27,7 @@ public class ArticleController {
     @RequestMapping("/save")
     public Result add(Article article){
         Result result=new Result();
-        boolean insert = articleService.insert(article);
+        boolean insert = articleService.save(article);
         result.setSuccess(insert);
         return result;
     }
@@ -38,7 +38,7 @@ public class ArticleController {
      */
     @RequestMapping("/publish")
     public Result publish(Article article){
-        articleService.insertOrUpdate(article);
+        articleService.saveOrUpdate(article);
         //发布文章
         articleService.updateById(article);
         return null;

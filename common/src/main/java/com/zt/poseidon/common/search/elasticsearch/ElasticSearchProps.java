@@ -1,5 +1,6 @@
 package com.zt.poseidon.common.search.elasticsearch;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @Date: 2018/8/24
  */
 @ConfigurationProperties(prefix = "zt.es")
+@Data
 public class ElasticSearchProps {
     private String adresses;
 

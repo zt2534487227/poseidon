@@ -5,7 +5,7 @@ package com.zt.poseidon.common.constant;
  * @Description:
  * @Date: 2018/8/21
  */
-public interface StatusCode {
+public interface Constants {
     enum Status {
         /**
          * 成功
